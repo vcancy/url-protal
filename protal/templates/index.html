@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+     <!-- 引入jQuery -->
+    <script src="http://apps.bdimg.com/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+     <!-- 引入 Bootstrap -->
+     <link href="/static/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+     <link href="/static/bootstrap/css/bootstrap.css" rel="stylesheet" type="text/css">
+      <script type="text/javascript" src="/static/bootstrap/js/bootstrap.min.js"></script>
+     <script type="text/javascript" src="/static/bootstrap/js/bootstrap.js"></script>
+     <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+    <title>数据展示平台</title>
+    <script type="text/javascript" src="/static/bootstrap/js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $("#search").click(function(){
+        var fun=$("#fun").val();
+        $.ajax( {
+          type: 'POST',
+          url:'/protal/search/',
+          dataType: 'json',
+          data:{data:fun,para:''},
+          success: function( data_get ){
+              var count = data_get['count'];
+              var data = data_get['data'];
+              build_div(data,$('#records'));
+          },
+            error: function(){
+            alert("查询失败");
+            }
+         });
+         var build_div = function( data, element){
+           if(data){
+           element.empty();
+               build_head(data[0],$('#head'))
+               build_content(data,$('#content'))
+          }
+        }
+      var build_head = function(head,element){
+          if(head){
+              element.empty();
+              $.each( head, function( k, v ) {
+                  element.append('<th>'+k+'</th>')
+            })
+          }
+      }
+      var build_content = function(data,element){
+          if(data){
+              element.empty();
+              $.each( data, function( key, value) {
+                  var td = ''
+                  $.each( value, function( k, v ) {
+                      td=td+'<td>'+v+'</td>'
+                })
+                  element.append('<tr>'+td+'</tr>')
+            })
+          }
+      }
+      });
+    });
+    </script>
+        <script type="text/javascript">
+    $(document).ready(function(){
+      $("#download").click(function(){
+          var data = $("#fun").val()
+          var para = $("#para").val()
+           $(window.location).attr('href', 'download?data='+data+'&para='+para);
+        })
+      })
+
+        </script>
+</head>
+<body>
+
+<!-- bootstrap 特性容器 -->
+    <!-- Fixed navbar -->
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="#">数据展示平台</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#About">说明</a></li>
+            <li><a href="#contact">联系</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
+      </div>
+    </nav>
+
+    <div class="container theme-showcase" style="margin-top: 60px" role="main">
+        <form id="searchform" action="" method="get" style="display:inline">
+            <select id="fun">
+              {% for x in function_list %}
+                  <option value ="{{ x.id }}">{{ x.name }}</option>
+              {% endfor %}
+            </select>
+            <input type="text" id = 'para' class="">
+            <button type="button"  id="search" class="btn btn-primary" >查询</button>
+            <button id = 'download' type="button" class="btn btn-success">下载</button>
+        </form>
+            <table class="table">
+                  <caption>Optional table caption.</caption>
+                  <thead>
+                    <tr id="head">
+                    </tr>
+                  </thead>
+                  <tbody id="content">
+
+                  </tbody>
+                </table>
+        </div>
+</body>
+
+</html>
