@@ -18,6 +18,4 @@ from . import views
 
 urlpatterns = [
     url(r'^$',views.index,name='index'),
-    url(r'^search', views.serach, name='search'),
-    url(r'^download', views.download, name='download')
 ]
