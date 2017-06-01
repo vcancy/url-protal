@@ -1,0 +1,37 @@
+variables:
+  PROJECT_GROUP: ${CI_PROJECT_NAMESPACE}
+  PROJECT_NAME: ${CI_PROJECT_NAME}
+
+stages:
+  - package
+  - deploy
+
+package:
+  image: ${DOCKER_REGISTRY}/env/dind:latest
+  stage: package
+  script:
+    - cp * docker/
+    - cd docker
+    - DOCKER_REPO=${DOCKER_REGISTRY}/${PROJECT_GROUP}/${PROJECT_NAME}:${CI_BUILD_REF_NAME}
+    # build docker image
+    - docker build -t ${DOCKER_REPO} .
+    # push至docker registry
+    - docker push ${DOCKER_REPO}
+  only:
+    - master
+    - tags
+
+deploy:test_env:
+  image: ${DOCKER_REGISTRY}/env/rancher-compose:latest
+  stage: deploy
+  script:
+    - cd docker
+    - sed -i 's#${PROJECT_NAME}#'$PROJECT_NAME'#g' docker-compose.yml
+  only:
+    - master
+    - tags
+  environment:
+    name: test
+  dependencies:
+    - package
+  when: manual
