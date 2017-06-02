@@ -83,8 +83,8 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'platfrom_protal',
         'USER': 'root',
-        'PASSWORD': 'Wxb123456!',
-        'HOST': '192.168.103.201',
+        'PASSWORD': '2dd7ce4c5a3144ea520f89b1ec61fa2b',
+        'HOST': 'mysql',
         'PORT': '3306',
     }
 }
