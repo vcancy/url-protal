@@ -10,7 +10,7 @@ package:
   image: ${DOCKER_REGISTRY}/env/dind:latest
   stage: package
   script:
-    - rsync -av --exclude  docker  ./ docker/
+    - cp -rf `ls ./ | grep -E -v "^(docker)$"`  docker/
     - cd docker
     - DOCKER_REPO=${DOCKER_REGISTRY}/${PROJECT_GROUP}/${PROJECT_NAME}:${CI_BUILD_REF_NAME}
     # build docker image
