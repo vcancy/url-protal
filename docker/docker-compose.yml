@@ -1,0 +1,9 @@
+${PROJECT_NAME}:
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.container.start_once: 'true'
+  tty: true
+  image: "${DOCKER_REGISTRY}/${PROJECT_GROUP}/${PROJECT_NAME}:${CI_BUILD_REF_NAME}"
+  stdin_open: true
+  external_links:
+    - external-service/mysql-statistics:mysql
