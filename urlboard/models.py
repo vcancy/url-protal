@@ -11,7 +11,7 @@ class Group(models.Model):
     desc = models.CharField(max_length=200,verbose_name = "描述",blank=True)
     pub_date = models.DateTimeField(verbose_name = "创建日期",auto_now_add=True)
 
-    def __unicode__(self):  # admin后台显示的描述，以及python 对象的名称
+    def __str__(self):  # admin后台显示的描述，以及python 对象的名称
         return self.name
 class URL(models.Model):
     class Meta:
@@ -22,5 +22,5 @@ class URL(models.Model):
     url = models.CharField(max_length=200,verbose_name = "URL")
     desc = models.CharField(max_length=200,verbose_name = "描述")
 
-    def __unicode__(self):  # admin后台显示的描述，以及python 对象的名称
+    def __str__(self):  # admin后台显示的描述，以及python 对象的名称
         return self.name
