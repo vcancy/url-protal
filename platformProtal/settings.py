@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'urlboard.apps.UrlboardConfig'
+    'urlboard.apps.UrlboardConfig',
+    'rws.apps.RwsConfig'
 ]
 
 MIDDLEWARE = [
@@ -81,11 +82,11 @@ DATABASES = {
     # }
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'platfrom_protal',
-        'USER': 'root',
-        'PASSWORD': '2dd7ce4c5a3144ea520f89b1ec61fa2b',
-        'HOST': 'mysql',
-        'PORT': '3306',
+        'NAME': os.getenv('MYSQL_DB','report'),
+        'USER': os.getenv('MYSQL_USER','root'),
+        'PASSWORD': os.getenv('MYSQL_PWD','Wxb123456!'),
+        'HOST': os.getenv('MYSQL_HOST','218.89.222.247'),
+        'PORT': os.getenv('MYSQL_PORT','30008'),
     }
 }
 
