@@ -22,3 +22,4 @@ urlpatterns = [
     url(r'^platform-protal/admin/', admin.site.urls),
     url(r'^platform-protal/', include('urlboard.urls'))
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+import platformProtal.jobs

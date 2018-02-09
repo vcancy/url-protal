@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'urlboard.apps.UrlboardConfig',
-    'rws.apps.RwsConfig'
+    'rws.apps.RwsConfig',
+    "django_apscheduler"
+
 ]
 
 MIDDLEWARE = [
@@ -84,9 +86,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': os.getenv('MYSQL_DB','report'),
         'USER': os.getenv('MYSQL_USER','root'),
-        'PASSWORD': os.getenv('MYSQL_PWD','Wxb123456!'),
-        'HOST': os.getenv('MYSQL_HOST','218.89.222.247'),
-        'PORT': os.getenv('MYSQL_PORT','30008'),
+        'PASSWORD': os.getenv('MYSQL_PWD','2dd7ce4c5a3144ea520f89b1ec61fa2b'),
+        'HOST': os.getenv('MYSQL_HOST','10.165.124.186'),
+            'PORT': os.getenv('MYSQL_PORT','3306'),
     }
 }
 
@@ -121,7 +123,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+# USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
